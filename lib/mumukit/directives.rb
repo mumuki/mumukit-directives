@@ -1,3 +1,5 @@
+require 'mumukit/core'
+
 require_relative './directives/version'
 
 module Mumukit
