@@ -1,6 +1,7 @@
 class Mumukit::Directives::Pipeline
-  def initialize(directives)
+  def initialize(directives, comment_type=nil)
     @directives = directives
+    configure(comment_type)
   end
 
   def transform(request)
@@ -11,5 +12,13 @@ class Mumukit::Directives::Pipeline
         .inject(base_sections) { |sections, it| it.transform(sections) }
         .amend(rest)
         .to_struct
+  end
+
+  private
+
+  def configure(comment_type)
+    @directives.each do |it|
+      it.comment_type = comment_type
+    end
   end
 end

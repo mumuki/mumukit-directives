@@ -1,10 +1,10 @@
-class Mumukit::Directives::Flags
+class Mumukit::Directives::Flags < Mumukit::Directives::Directive
   def flags(code)
-    code.captures(flag_regexp).map { $1 }
+    code.captures(comment_regexp).map { $1 }
   end
 
-  def flag_regexp
-    /\/\*\[(.+?)\]\*\//
+  def regexp
+    /\[(.+?)\]/
   end
 
   def active?(flag, code)

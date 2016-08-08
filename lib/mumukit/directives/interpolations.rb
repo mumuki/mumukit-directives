@@ -1,20 +1,20 @@
-class Mumukit::Directives::Interpolations
+class Mumukit::Directives::Interpolations < Mumukit::Directives::Directive
   def initialize(key)
     @key = key
   end
 
-  def interpolation_regexp
-    /\/\*\.\.\.(.+?)\.\.\.\*\//
+  def regexp
+    /\.\.\.(.+?)\.\.\./
   end
 
   def interpolations?(code)
-    (code =~ interpolation_regexp).present?
+    (code =~ comment_regexp).present?
   end
 
   def interpolate(code, sections)
     interpolated = []
 
-    var = code.captures(interpolation_regexp) do
+    var = code.captures(comment_regexp) do
       interpolated << $1
       sections[$1]
     end

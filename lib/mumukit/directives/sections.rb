@@ -1,10 +1,10 @@
-class Mumukit::Directives::Sections
-  def sections_regexp
-    /\/\*<(.+?)#\*\/(.+?)\/\*#(.+?)>\*\//
+class Mumukit::Directives::Sections < Mumukit::Directives::Directive
+  def regexp
+    /<(.+?)##{comment_type.close_comment}(.+?)#{comment_type.open_comment}#(.+?)>/
   end
 
   def split_sections(code)
-    sections = code.captures(sections_regexp).map do
+    sections = code.captures(comment_regexp).map do
       [$1, $2]
     end
     Hash[sections]

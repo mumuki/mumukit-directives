@@ -7,6 +7,8 @@ module Mumukit
   end
 end
 
+require_relative './directives/comment_type'
+require_relative './directives/directive'
 require_relative './directives/flags'
 require_relative './directives/interpolations'
 require_relative './directives/sections'
