@@ -22,3 +22,9 @@ class Mumukit::Directives::Pipeline
     end
   end
 end
+
+module Mumukit::Directives::NullPipeline
+  def self.transform(request)
+    request
+  end
+end
