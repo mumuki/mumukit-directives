@@ -1,5 +1,5 @@
 class Mumukit::Directives::Interpolations < Mumukit::Directives::Directive
-  def initialize(key)
+  def initialize(key=nil)
     @key = key
   end
 
@@ -28,6 +28,7 @@ class Mumukit::Directives::Interpolations < Mumukit::Directives::Directive
   end
 
   def transform(sections)
+    raise 'Missing key. Build the interpolations with a key in order to use this method' unless @key
     code = sections[@key]
     if interpolations? code
       interpolation, interpolated = interpolate code, sections.except(@key)
