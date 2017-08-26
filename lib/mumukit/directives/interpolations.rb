@@ -15,8 +15,13 @@ class Mumukit::Directives::Interpolations < Mumukit::Directives::Directive
     interpolated = []
 
     var = code.captures(comment_regexp) do
-      interpolated << $1
-      sections[$1]
+      substitution = sections[$1]
+      if substitution
+        interpolated << $1
+        substitution
+      else
+        $&
+      end
     end
 
     [var, interpolated.uniq]
