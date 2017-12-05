@@ -16,11 +16,11 @@ module Mumukit::Directives::CommentType
     end
 
     def open_comment
-      /#{open}/
+      Regexp.new Regexp.escape(open)
     end
 
     def close_comment
-      /#{close}/
+      Regexp.new Regexp.escape(close)
     end
 
   end
