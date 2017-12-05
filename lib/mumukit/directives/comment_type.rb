@@ -2,21 +2,38 @@ module Mumukit::Directives::CommentType
   def self.parse(string)
     case string
       when 'ruby' then
-        Mumukit::Directives::Ruby
+        Ruby
       when 'haskell' then
-        Mumukit::Directives::Haskell
+        Haskell
       else
-        Mumukit::Directives::Cpp
+        Cpp
     end
   end
 
-  module Cpp
-    def self.open_comment
-      /\/\*/
+  module Comment
+    def comment(code)
+      "#{open}#{code}#{close}"
     end
 
-    def self.close_comment
-      /\*\//
+    def open_comment
+      /#{open}/
+    end
+
+    def close_comment
+      /#{close}/
+    end
+
+  end
+
+  module Cpp
+    extend Comment
+
+    def self.open
+      '/*'
+    end
+
+    def self.close
+      '*/'
     end
 
     def self.to_s
@@ -25,12 +42,14 @@ module Mumukit::Directives::CommentType
   end
 
   module Ruby
-    def self.open_comment
-      /#/
+    extend Comment
+
+    def self.open
+      '#'
     end
 
-    def self.close_comment
-      /#/
+    def self.close
+      '#'
     end
 
     def self.to_s
@@ -39,12 +58,14 @@ module Mumukit::Directives::CommentType
   end
 
   module Haskell
-    def self.open_comment
-      /\{-/
+    extend Comment
+
+    def self.open
+      '{-'
     end
 
-    def self.close_comment
-      /-\}/
+    def self.close
+      '-}'
     end
 
     def self.to_s
