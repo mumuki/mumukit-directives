@@ -1,6 +1,6 @@
 class Mumukit::Directives::Sections < Mumukit::Directives::Directive
   def regexp
-    /<(.+?)##{comment_type.close_comment}(.+?)#{comment_type.open_comment}#(.+?)>/m
+    /<(.+?)##{comment_type.close_comment}(.*?)#{comment_type.open_comment}#(.+?)>/m
   end
 
   def split_sections(code)
