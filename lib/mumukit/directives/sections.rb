@@ -13,12 +13,7 @@ class Mumukit::Directives::Sections < Mumukit::Directives::Directive
   def transform(sections)
     result = {}
     sections.each do |key, code|
-      new_sections = split_sections(code)
-      if new_sections.present?
-        result.merge!(new_sections)
-      else
-        result[key] = code
-      end
+      result[key] = split_sections(code).presence || code
     end
     result
   end

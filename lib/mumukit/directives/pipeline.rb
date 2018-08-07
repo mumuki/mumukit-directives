@@ -9,7 +9,7 @@ class Mumukit::Directives::Pipeline
     rest = base_sections.slice!('test', 'extra', 'content', 'query')
 
     @directives
-        .inject(base_sections) { |sections, it| it.transform(sections) }
+        .inject(base_sections) { |sections, it| it.transform sections }
         .amend(rest)
         .to_struct
   end
