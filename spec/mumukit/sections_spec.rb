@@ -12,6 +12,8 @@ describe 'sections' do
                                                     'baz' => 'foobar' }
   it { expect(s.transform('foo' => 'bar',
                           'foobar' => 'foo /*<baz#*/lalala/*#baz>*/ ignored /*<bar#*/lelele/*#bar>*/')).to eq 'foo' => 'bar',
+                                                                                                              'baz' => 'lalala',
+                                                                                                              'bar' => 'lelele',
                                                                                                               'foobar' => {
                                                                                                                   'baz' => 'lalala',
                                                                                                                   'bar' => 'lelele'
