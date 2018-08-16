@@ -9,9 +9,23 @@ describe 'sections' do
 
   it { expect(s.transform('foo' => 'bar',
                           'baz' => 'foobar')).to eq 'foo' => 'bar',
-                                                    'baz' => 'foobar' }
-  it { expect(s.transform('foo' => 'bar',
-                          'foobar' => 'foo /*<baz#*/lalala/*#baz>*/ ignored /*<bar#*/lelele/*#bar>*/')).to eq 'foo' => 'bar',
-                                                                                                              'baz' => 'lalala',
-                                                                                                              'bar' => 'lelele' }
+                                                      'baz' => 'foobar' }
+
+  context 'not nesting sections' do
+    it { expect(s.transform('foo' => 'bar',
+                            'foobar' => 'foo /*<baz#*/lalala/*#baz>*/ ignored /*<bar#*/lelele/*#bar>*/')).to eq 'foo' => 'bar',
+                                                                                                                'baz' => 'lalala',
+                                                                                                                'bar' => 'lelele' }
+  end
+
+  context 'nesting sections' do
+    let(:s) { Mumukit::Directives::Sections.new nest_sections: true }
+
+    it { expect(s.transform('foo' => 'bar',
+                            'foobar' => 'foo /*<baz#*/lalala/*#baz>*/ ignored /*<bar#*/lelele/*#bar>*/')).to eq 'foo' => 'bar',
+                                                                                                                'foobar' => {
+                                                                                                                    'baz' => 'lalala',
+                                                                                                                    'bar' => 'lelele'
+                                                                                                                } }
+  end
 end
