@@ -4,12 +4,12 @@ describe "pipeline with sections outputs content as a hash" do
   let(:req) { { content: 'foo /*<baz#*/lalala/*#baz>*/' } }
   let(:p) { Mumukit::Directives::Pipeline.new([sections]) }
 
-  context 'keeping section parent keys' do
-    let(:sections) { Mumukit::Directives::Sections.new preserve_parent_key: true }
+  context 'nesting sections' do
+    let(:sections) { Mumukit::Directives::Sections.new nest_sections: true }
     it { expect(p.transform(req).content).to eq('baz' => 'lalala') }
   end
 
-  context 'not keeping section parent keys' do
+  context 'not nesting sections' do
     let(:sections) { Mumukit::Directives::Sections.new }
     it { expect(p.transform(req).content).to be nil }
   end

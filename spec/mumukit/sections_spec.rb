@@ -11,20 +11,18 @@ describe 'sections' do
                           'baz' => 'foobar')).to eq 'foo' => 'bar',
                                                       'baz' => 'foobar' }
 
-  context 'not preserving key' do
+  context 'not nesting sections' do
     it { expect(s.transform('foo' => 'bar',
                             'foobar' => 'foo /*<baz#*/lalala/*#baz>*/ ignored /*<bar#*/lelele/*#bar>*/')).to eq 'foo' => 'bar',
                                                                                                                 'baz' => 'lalala',
                                                                                                                 'bar' => 'lelele' }
   end
 
-  context 'preserving parent key' do
-    let(:s) { Mumukit::Directives::Sections.new preserve_parent_key: true }
+  context 'nesting sections' do
+    let(:s) { Mumukit::Directives::Sections.new nest_sections: true }
 
     it { expect(s.transform('foo' => 'bar',
                             'foobar' => 'foo /*<baz#*/lalala/*#baz>*/ ignored /*<bar#*/lelele/*#bar>*/')).to eq 'foo' => 'bar',
-                                                                                                                'baz' => 'lalala',
-                                                                                                                'bar' => 'lelele',
                                                                                                                 'foobar' => {
                                                                                                                     'baz' => 'lalala',
                                                                                                                     'bar' => 'lelele'
