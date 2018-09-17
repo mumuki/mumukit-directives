@@ -9,7 +9,7 @@ describe 'sections' do
 
   it { expect(s.transform('foo' => 'bar',
                           'baz' => 'foobar')).to eq 'foo' => 'bar',
-                                                      'baz' => 'foobar' }
+                                                    'baz' => 'foobar' }
 
   context 'not nesting sections' do
     it { expect(s.transform('foo' => 'bar',
@@ -28,4 +28,11 @@ describe 'sections' do
                                                                                                                     'bar' => 'lelele'
                                                                                                                 } }
   end
+
+  context 'join' do
+    it { expect(s.join('foo' => 'bar',
+                       'bar' => 'baz',
+                       'baz' => 'foo')).to eq "/*<foo#*/bar/*#foo>*/\n/*<bar#*/baz/*#bar>*/\n/*<baz#*/foo/*#baz>*/" }
+  end
+
 end

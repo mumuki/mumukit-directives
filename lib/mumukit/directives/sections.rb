@@ -55,6 +55,22 @@ class Mumukit::Directives::Sections < Mumukit::Directives::Directive
     result
   end
 
+  def join(sections)
+    file_declarations, _file_references = sections.map do |section, content|
+      [build(section, content), interpolate(section)]
+    end.transpose
+
+    file_declarations.join "\n"
+  end
+
+  def build(section, content)
+    "#{comment_type.comment "<#{section}#"}#{content}#{comment_type.comment "##{section}>"}"
+  end
+
+  def interpolate(section)
+    comment_type.comment("...#{section}...")
+  end
+
   private
 
   def merge_sections!(result, key, code, new_sections)
