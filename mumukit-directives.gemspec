@@ -3,8 +3,6 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'mumukit/directives/version'
 
-require 'mumukit/directives/version'
-
 Gem::Specification.new do |spec|
   spec.name          = 'mumukit-directives'
   spec.version       = Mumukit::Directives::VERSION
@@ -25,5 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'codeclimate-test-reporter'
 
-  spec.add_dependency 'mumukit-core', '>= 0.1', '< 2'
+  spec.required_ruby_version = '>= 3.0'
+
+  spec.add_dependency 'mumukit-core', '~> 1.19'
 end
