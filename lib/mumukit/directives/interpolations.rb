@@ -8,7 +8,7 @@ class Mumukit::Directives::Interpolations < Mumukit::Directives::Directive
   end
 
   def interpolations?(code)
-    (code =~ comment_regexp).present?
+    code.is_a?(String) && (code =~ comment_regexp).present?
   end
 
   def interpolate(code, sections)

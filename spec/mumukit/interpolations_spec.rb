@@ -4,6 +4,7 @@ describe 'interpolations' do
   describe 'interpolate' do
     let(:i) { Mumukit::Directives::Interpolations.new }
 
+    it { expect(i.interpolations?({})).to be false }
     it { expect(i.interpolations? '').to be false }
     it { expect(i.interpolations? 'test "foo" {}').to be false }
     it { expect(i.interpolations? 'test "foo" { /* here there is a test */ }').to be false }
